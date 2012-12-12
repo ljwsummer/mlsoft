@@ -2,8 +2,10 @@
 # -*-coding:utf-8-*-
 
 import os
+
 from unit_tests import config
-from common import reader
+from mlsoft.common import reader
+
 def setUp():
     pass
 
@@ -12,7 +14,7 @@ def tearDown():
 
 
 def test_append_line():
-    path = os.path.join(config.unit_tests_path, 'common/data/test_data.txt')
+    path = os.path.join(config.test_data_path, 'test_data.txt')
     data = reader.Data(path)
     m, n = data.X.shape
     data.append_line('1 qid:2 1:0.21 3:0.11 27:-0.32')
@@ -30,7 +32,7 @@ def test_append_line():
 
 
 def test_append_file():
-    path = os.path.join(config.unit_tests_path, 'common/data/test_data.txt')
+    path = os.path.join(config.test_data_path, 'test_data.txt')
     data = reader.Data(path)
     m, n = data.X.shape
     data.append_file(path)
