@@ -1,7 +1,7 @@
 # -*-coding:utf-8-*-
 
 import numpy as np
-import common.reader
+import mlsoft.common.reader
 import ConfigParser
 
 class LinearReg(object):
@@ -20,7 +20,7 @@ class LinearReg(object):
         self.conf.read(conf_file)
 
     def _load_data(self, data_file):
-        self.data = common.reader.Data(data_file)
+        self.data = mlsoft.common.reader.Data(data_file)
 
     def _compute_cost(self, X, Y, theta):
         m = X.shape[0]
