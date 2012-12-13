@@ -12,7 +12,11 @@ class LinearReg(object):
         self.alpha = self.conf.getfloat('linear_regression', 'alpha')
         data_file = self.conf.get('global', 'train_data')
         self._load_data(data_file)
-        self.theta = np.matrix(';'.join([0.0] * self.data.Y.shape[0]))
+        self.m = self.data.X.shape[0]
+        self.n = self.data.X.shape[1]
+        self.theta = np.mat(np.zeros((self.n, 1)))
+        self.iters = self.conf.getint('linear_regression', 'num_iters')
+        self.costs = []
 
     def _load_conf(self, conf_file):
         self.conf = ConfigParser.ConfigParser()
@@ -28,19 +32,39 @@ class LinearReg(object):
         j = sum(np.power(res, 2)) / m
         return j
 
-    def _compute_gradient(self):
-        pass
+    def _compute_gradient(self, X, Y, theta):
+        return X.T * (X * theta - Y)
+
+    def _gradient_descent(self):
+        grad = self._compute_gradient(self.data.X, self.data.Y, self.theta)
+        self.theta -= self.alpha * grad / self.m
 
     def train(self):
-        pass
+        for x in xrange(self.iters):
+            self._gradient_descent()
+            cost = self._compute_cost(self.data.X, self.data.Y, self.theta)
+            self.costs.append(cost)
 
-    def predict(self):
-        pass
+    def predict(self, X):
+        self.theta = np.mat(np.zeros((self.n, 1)))
+        delta = X.shape[1] - self.theta.shape[0]
+        if delta < 0:
+            theta = self.theta[:X.shape[1]]
+        elif delta > 0:
+            theta = np.vstack(self.theta, np.mat(np.zeros(delta, 1)))
+        else:
+            theta = self.theta
+        return X * theta
 
-    def save_model(self):
-        pass
+    def save_model(self, model_file):
+        fp = open(model_file, 'w')
+        t = [str(x) for x in self.theta.flat]
+        print >> fp, ';'.join(t)
+        fp.close()
 
-    def load_model(self):
-        pass
+    def load_model(self, model_file):
+        fp = open(model_file)
+        self.theta = np.matrix(fp.readline().strip())
+        fp.close()
 
 
