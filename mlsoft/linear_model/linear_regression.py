@@ -46,7 +46,6 @@ class LinearReg(object):
             self.costs.append(cost)
 
     def predict(self, X):
-        self.theta = np.mat(np.zeros((self.n, 1)))
         delta = X.shape[1] - self.theta.shape[0]
         if delta < 0:
             theta = self.theta[:X.shape[1]]
