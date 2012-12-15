@@ -1,8 +1,8 @@
 # -*-coding:utf-8-*-
 
+import ConfigParser
 import numpy as np
 import mlsoft.common.reader
-import ConfigParser
 
 class LinearReg(object):
     """linear regression"""
@@ -50,7 +50,7 @@ class LinearReg(object):
         if delta < 0:
             theta = self.theta[:X.shape[1]]
         elif delta > 0:
-            theta = np.vstack(self.theta, np.mat(np.zeros(delta, 1)))
+            theta = np.vstack([self.theta, np.mat(np.zeros((delta, 1)))])
         else:
             theta = self.theta
         return X * theta
