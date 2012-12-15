@@ -1,5 +1,6 @@
 # -*-coding:utf-8-*-
 
+import sys
 import numpy as np
 
 class Error(Exception):
@@ -30,7 +31,18 @@ class Data(object):
             if idx > len(featv):
                 featv += ['0'] * (idx - len(featv))
             featv[idx - 1] = val
-        self.X = appd(self.X, np.matrix(','.join(featv)))
+        if self.X.size == 0:
+            self.X = np.matrix(','.join(featv))
+        else:
+            delta = len(featv) - self.X.shape[1]
+            if delta > 0:
+                temp = np.mat(np.zeros((self.X.shape[0], delta)))
+                self.X = np.hstack([self.X, temp])
+            elif delta < 0:
+                featv += ['0'] * abs(delta)
+            else:
+                pass
+            self.X = np.vstack([self.X, np.matrix(','.join(featv))])
         self._check()
 
     def append_file(self, input_file):
@@ -39,13 +51,13 @@ class Data(object):
             for line in fp:
                 self.append_line(line)
         except Error as error:
-            pass
+            print >> sys.stderr, error
         finally:
             fp.close()
 
     def _check(self):
         if self.Y.size != self.qid.size or self.Y.size != self.X.shape[0]:
-            raise FormatException('Input data format error.')
+            raise Error('Exception: Input data format error.')
 
 
 
