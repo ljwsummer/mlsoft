@@ -30,7 +30,7 @@ class LinearReg(object):
         m = X.shape[0]
         res = X * theta - Y
         j = sum(np.power(res, 2)) / m
-        return j
+        return j[0,0]
 
     def _compute_gradient(self, X, Y, theta):
         return X.T * (X * theta - Y)
