@@ -1,5 +1,8 @@
 # -*-coding:utf-8-*-
 
+__author__ = "Jiawang Liu (ljwsummer@gmail.com)"
+__date__ = "2012/12"
+
 import ConfigParser
 import numpy as np
 import mlsoft.common.reader

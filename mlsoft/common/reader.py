@@ -1,5 +1,8 @@
 # -*-coding:utf-8-*-
 
+__author__ = "Jiawang Liu (ljwsummer@gmail.com)"
+__date__ = "2012/12"
+
 import sys
 import numpy as np
 
