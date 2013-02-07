@@ -11,22 +11,34 @@ class TestLinearReg(object):
 
     def setup(self):
         self.conf = os.path.join(config.model_conf, 'model.cfg')
+        self.mat = lambda file : np.matrix(';'.join([x.strip() for x in open(file)]))
+        self.model = self.mat(config.linear_reg_model)
+        self.predicts = self.mat(config.linear_reg_predicts)
         self.lr = lr.LinearReg(self.conf)
 
-    def teardown():
+    def teardown(self):
         del self.lr
 
-    def test_train():
+    def test_train(self):
         self.lr.train()
-        theta = copy.deepcopy(self.lr.theta)
+        for x in (self.model - self.lr.theta).flat:
+            assert x < 1e-6
 
-    def test_predict():
-        pass
+    def test_predict(self):
+        self.lr.load_model(config.linear_reg_model)
+        for x in (self.predicts - self.lr.predict(self.lr.data.X)).flat:
+            assert x < 1e-6
 
-    def test_save_model():
-        pass
+    def test_save_model(self):
+        import tempfile
+        temp_model_file = tempfile.NamedTemporaryFile().name
+        self.lr.save_model(temp_model_file)
+        for x in (self.mat(temp_model_file) - self.lr.theta).flat:
+            assert x < 1e-6
 
-    def load_model():
-        pass
+    def test_load_model(self):
+        self.lr.load_model(config.linear_reg_model)
+        for x in (self.model - self.lr.theta).flat:
+            assert x < 1e-6
 
 
