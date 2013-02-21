@@ -13,12 +13,13 @@ class LinearReg(object):
     def __init__(self, conf_file):
         self._load_conf(conf_file)
         self.alpha = self.conf.getfloat('linear_regression', 'alpha')
+        self.iters = self.conf.getint('linear_regression', 'num_iters')
+        self.lambd = self.conf.getfloat('linear_regression', 'lambda')
         data_file = self.conf.get('global', 'train_data')
         self._load_data(data_file)
         self.m = self.data.X.shape[0]
         self.n = self.data.X.shape[1]
         self.theta = np.mat(np.zeros((self.n, 1)))
-        self.iters = self.conf.getint('linear_regression', 'num_iters')
         self.costs = []
 
     def _load_conf(self, conf_file):
@@ -36,7 +37,7 @@ class LinearReg(object):
         return j[0,0]
 
     def _compute_gradient(self, X, Y, theta):
-        return X.T * (X * theta - Y)
+        return X.T * (X * theta - Y) + self.lambd * theta
 
     def _gradient_descent(self):
         grad = self._compute_gradient(self.data.X, self.data.Y, self.theta)
