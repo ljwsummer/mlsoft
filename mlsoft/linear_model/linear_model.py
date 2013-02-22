@@ -42,6 +42,7 @@ class LinearModel(object):
         pass
 
     def train(self):
+        self.theta = np.mat(np.zeros((self.n, 1)))
         for x in xrange(self.iters):
             self._gradient_descent()
             cost = self._compute_cost(self.data.X, self.data.Y, self.theta)
