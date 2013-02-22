@@ -13,6 +13,7 @@ class TestLinearReg(object):
         self.conf = os.path.join(config.model_conf, 'model.cfg')
         self.mat = lambda file : np.matrix(';'.join([x.strip() for x in open(file)]))
         self.model = self.mat(config.linear_reg_model)
+        self.model_has_intercept = self.mat(config.linear_reg_model_has_intercept)
         self.predicts = self.mat(config.linear_reg_predicts)
         self.lr = lr.LinearReg(self.conf)
 
@@ -20,9 +21,13 @@ class TestLinearReg(object):
         del self.lr
 
     def test_train(self):
-        self.lr.train()
-        for x in (self.model - self.lr.theta).flat:
-            assert x < 1e-6
+        def test(lr, has_intercept, model):
+            lr.intercept = has_intercept
+            lr.train()
+            for x in (model - lr.theta).flat:
+                assert x < 1e-6
+        test(self.lr, True, self.model_has_intercept)
+        test(self.lr, False, self.model)
 
     def test_predict(self):
         self.lr.load_model(config.linear_reg_model)
