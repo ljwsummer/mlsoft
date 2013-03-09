@@ -39,7 +39,8 @@ class LinearModel(object):
         pass
 
     def _gradient_descent(self):
-        pass
+        grad = self._compute_gradient(self.data.X, self.data.Y, self.theta)
+        self.theta -= self.alpha * grad / self.m
 
     def train(self):
         self.theta = np.mat(np.zeros((self.n, 1)))
@@ -48,12 +49,24 @@ class LinearModel(object):
             cost = self._compute_cost(self.data.X, self.data.Y, self.theta)
             self.costs.append(cost)
 
-    def predict(self):
-        pass
+    def predict(self, X):
+        delta = X.shape[1] - self.theta.shape[0]
+        if delta < 0:
+            theta = self.theta[:X.shape[1]]
+        elif delta > 0:
+            theta = np.vstack([self.theta, np.mat(np.zeros((delta, 1)))])
+        else:
+            theta = self.theta
+        return X * theta
 
-    def save_model(self):
-        pass
+    def save_model(self, model_file):
+        fp = open(model_file, 'w')
+        t = [str(x) for x in self.theta.flat]
+        print >> fp, ';'.join(t)
+        fp.close()
 
-    def load_model(self):
-        pass
+    def load_model(self, model_file):
+        fp = open(model_file)
+        self.theta = np.matrix(fp.readline().strip())
+        fp.close()
 
