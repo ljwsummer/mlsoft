@@ -11,6 +11,8 @@ class LinearReg(LinearModel):
 
     def __init__(self, conf_file):
         LinearModel.__init__(self, conf_file)
+        if 'train_data' in self.conf.options('linear_regression'):
+            self._load_data(self.conf.get('linear_regression', 'train_data'))
         self.alpha = self.conf.getfloat('linear_regression', 'alpha')
         self.iters = self.conf.getint('linear_regression', 'num_iters')
         self.lambd = self.conf.getfloat('linear_regression', 'lambda')

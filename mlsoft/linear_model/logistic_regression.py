@@ -12,6 +12,8 @@ class LogisticReg(LinearModel):
 
     def __init__(self, conf_file):
         LinearModel.__init__(self, conf_file)
+        if 'train_data' in self.conf.options('logistic_regression'):
+            self._load_data(self.conf.get('logistic_regression', 'train_data'))
         self.alpha = self.conf.getfloat('logistic_regression', 'alpha')
         self.iters = self.conf.getint('logistic_regression', 'num_iters')
         self.lambd = self.conf.getfloat('logistic_regression', 'lambda')

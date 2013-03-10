@@ -19,9 +19,6 @@ class LinearModel(object):
         self._load_conf(conf_file)
         data_file = self.conf.get('global', 'train_data')
         self._load_data(data_file)
-        self.m = self.data.X.shape[0]
-        self.n = self.data.X.shape[1]
-        self.theta = np.mat(np.zeros((self.n, 1)))
         self.costs = []
 
     def _load_conf(self, conf_file):
@@ -31,6 +28,9 @@ class LinearModel(object):
 
     def _load_data(self, data_file):
         self.data = mlsoft.common.reader.Data(data_file)
+        self.m = self.data.X.shape[0]
+        self.n = self.data.X.shape[1]
+        self.theta = np.mat(np.zeros((self.n, 1)))
 
     def _compute_cost(self):
         pass
