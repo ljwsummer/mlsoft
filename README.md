@@ -5,7 +5,7 @@ mlsoft is a machine learning toolkit, as well as an easy-to-use **framework**. Y
 ##ToDo (keep updating)
 * Learning Algorithms
    * ~~linear regression~~ [*example*](https://github.com/ljwsummer/mlsoft/blob/master/examples/linear_reg_example.py)
-   * logistic regression
+   * ~~logistic regression~~ [*example*](https://github.com/ljwsummer/mlsoft/blob/master/examples/logistic_reg_example.py)
    * neural networks
    * support vector machine
    * gradient boosting machine
@@ -23,4 +23,5 @@ please wait me for a moment...
 * NumPy 1.7.0-1. [*HomePage*](https://github.com/numpy/numpy)
 * python-nose 1.2.1-1. We use nose as our unit test tool.
 * Gnuplot 4.6.1. [*HomePage*](http://www.gnuplot.info/)
+* Python 2.7.2
 
