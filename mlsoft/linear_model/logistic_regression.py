@@ -25,7 +25,7 @@ class LogisticReg(LinearModel):
     def _compute_cost(self, X, Y, theta):
         m = X.shape[0]
         res = - (np.multiply(Y, np.log(self._sigmoid(X * theta)))
-                + np.multiply(1 - Y, np.log(1 - Y, self._sigmoid(X * theta))))
+                + np.multiply(1 - Y, np.log(1 - self._sigmoid(X * theta))))
         idx = 1 if self.intercept else 0
         reg = self.lambd * sum(np.power(theta[idx:], 2)) / (2 * m)
         j = sum(res) / m + reg
@@ -39,7 +39,7 @@ class LogisticReg(LinearModel):
         return ret
 
     def predict(self, X):
-        ret = LinearModel.predict(self. X)
+        ret = LinearModel.predict(self, X)
         return self._sigmoid(ret)
 
 
