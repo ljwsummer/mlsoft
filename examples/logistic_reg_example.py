@@ -2,7 +2,7 @@
 # -*-coding:utf-8-*-
 
 __author__ = "Jiawang Liu (ljwsummer@gmail.com)"
-__date__ = "2013/02/07 17:09:00"
+__date__ = "2013/03/10 15:29:00"
 
 import optparse
 import mlsoft.linear_model.logistic_regression as logr
