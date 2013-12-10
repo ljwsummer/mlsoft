@@ -17,7 +17,7 @@ mlsoft is a machine learning toolkit, as well as an easy-to-use **framework**. Y
    * dcg, ndcg, err for ranking
 
 ##How to add your own algorithms
-please wait me for a moment...
+please wait
 
 ##Dependency
 * NumPy 1.7.0-1. [*HomePage*](https://github.com/numpy/numpy)
