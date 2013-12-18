@@ -1,4 +1,7 @@
 # mlsoft
+## IMPORTANT: 
+this project move to: https://github.com/ljwsummer/das/tree/master/ml/linear_model_py
+
 ## Introduction
 mlsoft is a machine learning toolkit, as well as an easy-to-use **framework**. You can use various learning, evaluation, and analysis algorithms in this package ([*how to use*](#todo-keep-updating)). Moreover, you can also add your own learning and analysis algorithms written by any programming language to this package([*how to do*](#how-to-add-your-own-algorithms)). Contact me if you have any new idea.
 
